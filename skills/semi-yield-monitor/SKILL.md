@@ -282,7 +282,7 @@ python "$SKILL/scripts/spc_yield.py" --input "$DATA/sort_history.csv" --baseline
     --exclude-subgroups L03/W2 --png spc.png
 # lot-level view: sigma shrinks by ~sqrt(wafers per lot), small shifts become visible
 python "$SKILL/scripts/spc_yield.py" --input "$DATA/sort_history.csv" --by lot \
-    --baseline-lots L01,L02,L03,L04,L05,L06,L07
+    --baseline-lots L01,L02,L03,L04,L05,L06,L07 --exclude-subgroups L03
 # no separate history file? build subgroups straight from the die data
 python "$SKILL/scripts/spc_yield.py" --die-results "$DATA/die_results.csv" --chart imr
 ```
