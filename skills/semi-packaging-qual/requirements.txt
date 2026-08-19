@@ -1,0 +1,10 @@
+# semi-packaging-qual — script dependencies (Python >= 3.10)
+#
+# Deliberately minimal. No scipy: the binomial/LTPD math in scripts/sample_size.py is
+# implemented from math.lgamma + numpy with bisection root-finding, and is verified against
+# known LTPD table points by `python sample_size.py --self-check`.
+#
+#   pip install -r requirements.txt
+#
+numpy>=1.24
+pandas>=2.0

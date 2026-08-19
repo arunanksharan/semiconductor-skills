@@ -1,0 +1,81 @@
+{
+  "scenario": "automotive_qfn_g1_derivative",
+  "title": "Automotive QFN, AEC-Q100 grade 1, derivative package",
+  "scenario_file": "automotive_qfn_g1_derivative.json",
+  "authored_by": "hand-written expectation, not a snapshot of generator output",
+  "rationale": [
+    "Grade 1 escalation: TC must run the -55/+125 C class condition for 1000 cycles with a 500-cycle interim readpoint, and HTSL must reach 1000 h at 150 C. A consumer-grade 500-cycle / 500-hour plan is a fail for this scenario.",
+    "Automotive lot floor: 3 non-consecutive assembly lots even though the novelty is 'derivative'. A plan that emits 1 lot here has leveraged similarity further than an automotive customer will accept.",
+    "Pd-coated Cu wire on Al pads: biased HAST is the leg that finds halide-driven IMC corrosion. It must be present and must not be silently replaced by THB.",
+    "Automotive mechanical suite: mechanical shock and variable-frequency vibration are required rows; constant acceleration is historically a cavity/hermetic test so it is expected only as a CONDITIONAL row with a TODO.",
+    "QFN is a leadframe package, not an area array: board-level DROP must not appear (no handheld exposure, no CSP joint), and solder BALL shear must not appear (there are no balls). Board-level TC of the exposed-pad joint is legitimate but conditional.",
+    "Wire-bond construction keeps wire pull and ball-bond shear in scope, with readpoints tied to HTSL so IMC degradation is caught mechanically before it is caught electrically."
+  ],
+  "expected_test_ids": [
+    "precon", "tc", "uhast", "hast", "thb", "htsl", "ptc", "board_tc",
+    "wire_pull", "ball_bond_shear", "die_shear",
+    "mech_shock", "vibration", "const_accel", "solvent",
+    "solderability", "phys_dim", "visual"
+  ],
+  "forbidden_test_ids": [
+    "board_drop", "ball_shear", "bump_integrity", "corner_csam",
+    "lead_integrity", "die_strength", "warpage"
+  ],
+  "expected_plan_fields": {
+    "device_class.aec_grade": 1,
+    "device_class.ambient_max_c": 125,
+    "package.area_array": false,
+    "package.interconnect": "wirebond",
+    "novelty.lots": 3,
+    "msl.level": "2",
+    "summary.env_leg_n_per_lot": 77,
+    "summary.env_leg_ltpd_pct_at_90": 2.95,
+    "summary.env_leg_units_total": 1059
+  },
+  "expected_rows": {
+    "precon": {
+      "standard_contains": "JESD22-A113",
+      "condition_contains": "85 C / 60 %RH, 168 h",
+      "n_per_lot": 77, "lots": 3, "accept": 0, "applicability": "required"
+    },
+    "tc": {
+      "standard_contains": "JESD22-A104",
+      "condition_contains": "-55/+125",
+      "duration_contains": "1000 cycles",
+      "readpoints_contains": "500",
+      "n_per_lot": 77, "lots": 3, "accept": 0, "applicability": "required"
+    },
+    "uhast": {
+      "standard_contains": "JESD22-A118", "condition_contains": "130 C",
+      "duration_contains": "96 h", "n_per_lot": 77, "lots": 3, "applicability": "required"
+    },
+    "hast": {
+      "standard_contains": "JESD22-A110", "condition_contains": "biased",
+      "duration_contains": "96 h", "note_contains": "Cu",
+      "n_per_lot": 77, "lots": 3, "applicability": "required"
+    },
+    "thb": {
+      "standard_contains": "JESD22-A101", "applicability": "alternative"
+    },
+    "htsl": {
+      "standard_contains": "JESD22-A103", "condition_contains": "150 C",
+      "duration_contains": "1000 h", "readpoints_contains": "500 h",
+      "n_per_lot": 77, "lots": 3, "applicability": "required"
+    },
+    "ptc": {"standard_contains": "JESD22-A105", "applicability": "conditional"},
+    "board_tc": {"standard_contains": "IPC-9701", "applicability": "conditional"},
+    "wire_pull": {"standard_contains": "2011", "readpoints_contains": "HTSL 1000 h"},
+    "ball_bond_shear": {"standard_contains": "JESD22-B116"},
+    "die_shear": {"applicability": "conditional"},
+    "mech_shock": {"standard_contains": "JESD22-B104", "applicability": "required",
+                   "n_per_lot": 45, "lots": 3},
+    "vibration": {"standard_contains": "JESD22-B103", "applicability": "required"},
+    "const_accel": {"applicability": "conditional", "note_contains": "TODO"},
+    "solvent": {"standard_contains": "JESD22-B107"},
+    "solderability": {"standard_contains": "J-STD-002", "note_contains": "FLANK"},
+    "phys_dim": {"standard_contains": "JESD22-B100"},
+    "visual": {"applicability": "required"}
+  },
+  "expected_note_keywords": ["similarity", "3 lots", "wettable-flank"],
+  "expected_out_of_scope_keywords": ["HTOL", "ELFR", "ESD"]
+}

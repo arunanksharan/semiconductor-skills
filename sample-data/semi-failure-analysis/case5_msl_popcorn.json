@@ -1,0 +1,78 @@
+{
+  "case_id": "FA-2026-0140",
+  "title": "Functional failures appearing at the contract manufacturer immediately after board reflow, on a batch of QFN parts stored open on the line",
+  "status": "open",
+  "opened": "2026-08-14",
+  "requester": {
+    "name": "Contract manufacturer quality",
+    "org": "Customer C CM",
+    "contact": "via account QE"
+  },
+  "device": {
+    "part_number": "KL-5502-QFN64",
+    "description": "Power management IC, wire-bond QFN",
+    "package": "QFN64, wire bond, MSL 3 rated",
+    "date_code": "2551",
+    "assembly_lot": "AS-25-5510",
+    "wafer_lot": "W25-2201",
+    "assembly_site": "OSAT-2",
+    "test_program_rev": "TP-5502 rev A"
+  },
+  "samples": [
+    {
+      "serial": "CM-01 .. CM-06",
+      "role": "sequence",
+      "condition_as_received": "6 failing units de-soldered from CM boards; 2 show a faint package bulge under raking light",
+      "disposition": "in FA lab, bagged with desiccant, not baked"
+    },
+    {
+      "serial": "CM-R1, CM-R2",
+      "role": "reference",
+      "condition_as_received": "2 units from the same reel, never reflowed, still in the original dry-pack",
+      "disposition": "held sealed as the un-reflowed control"
+    }
+  ],
+  "complaint": "The CM reports that 6 of 220 boards from one build failed in-circuit test immediately after reflow. All 220 devices came from the same reel. The devices were removed from their dry-pack for a partial build, the reel sat open on the line over a long weekend, and the remainder were used in this build without a bake. The CM says the devices are defective and is asking for credit. Our account QE wants a mechanism, and wants to know whether the surviving 214 boards are at risk.",
+  "symptoms": {
+    "symptom_class": "hard_fail",
+    "failure_rate": "6 of 220 boards from one build (2.7%). Zero failures in the earlier partial build that used devices from the same reel while it was still within floor life.",
+    "conditions": "Failures present at the first in-circuit test after reflow. Mixed signatures across the 6 units: 4 show an open on one or more supply or I/O nets, 2 are functionally dead. None passed at any point after reflow."
+  },
+  "life_history": {
+    "burn_in": "no",
+    "board_reflow": "Pb-free reflow, peak reported as 245-250 C, single pass. Devices are MSL 3 rated. Dry-pack opened 2026-07-30; the reel sat on the line uncovered until 2026-08-05 (approximately 6 days, factory ambient reported as 28-32 C and 60-70% RH). No bake was performed before this build.",
+    "field_hours": "0",
+    "environment": "CM assembly line",
+    "application_notes": "the earlier partial build from the same reel, run on 2026-07-30 within floor life, produced zero failures"
+  },
+  "selector_input": {
+    "symptom_class": "hard_fail",
+    "package_type": "wirebond-plastic",
+    "sample_count": 6,
+    "powered_signature": "open",
+    "suspected": [],
+    "after_burnin": false,
+    "after_reflow": true,
+    "customer_return": true,
+    "budget": "medium",
+    "urgency": "expedite"
+  },
+  "observations": [
+    {
+      "phase": "N0",
+      "technique": "external_visual",
+      "unit": "CM-01 .. CM-06",
+      "conditions": "10x and 50x stereo, raking light, as received",
+      "result": "2 of 6 units show a faint convex bulge on the mold surface under raking light. No cracks visible at 50x on any unit. No discoloration.",
+      "interpretation": "Observation only. A bulge is a lead worth pursuing before any handling that could alter the package.",
+      "date": "2026-08-14"
+    }
+  ],
+  "hypotheses": [],
+  "open_questions": [
+    "What is the actual floor-life allowance for this package at MSL 3, and how far did the 6-day open exposure at 60-70% RH exceed it?",
+    "Was the reflow profile within the device's rated peak temperature? The CM reports 245-250 C - obtain the actual profile trace, not the setpoint.",
+    "Are the surviving 214 boards at risk - i.e. is there latent delamination in units that currently pass?",
+    "IMPORTANT: do not bake any received unit and do not decap anything before acoustic imaging. Baking erases the moisture state and decapsulation erases the interface evidence."
+  ]
+}

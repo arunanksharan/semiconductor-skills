@@ -1,0 +1,78 @@
+{
+  "scenario": "consumer_wlcsp_new",
+  "title": "Consumer WLCSP, new package family, MSL 1 target",
+  "scenario_file": "consumer_wlcsp_new.json",
+  "authored_by": "hand-written expectation, not a snapshot of generator output",
+  "rationale": [
+    "New package family: 3 non-consecutive assembly lots, full stress set, and enough duration to see wear-out rather than just pass a gate (>=1000 TC cycles, >=1000 h HTSL). A 500-cycle plan for a family with no history is the failure mode this case is testing for.",
+    "MSL 1 means the precon soak is 85 C / 85 %RH for 168 h - the harshest soak, not the mildest. A generator that maps 'MSL 1' to a short 30 C / 60 %RH soak has the table inverted.",
+    "WLCSP is bare die: there are no wires, no wire loops and no die-attach epoxy. Wire pull, ball-bond shear and die shear MUST be absent. Their presence is a hallucinated-test failure.",
+    "The board joint IS the package joint, and the end product is a wearable: board-level drop (JESD22-B111) and board-level thermal cycling are required rows, not conditional extras.",
+    "300 um die: a die-strength monitor belongs in the plan, as a conditional row because there is no single JEDEC method to cite for it.",
+    "Consumer, non-automotive: the automotive mechanical suite (mechanical shock, vibration, constant acceleration, resistance to solvents) and power temperature cycling must not appear.",
+    "Small 2.6 mm body: shadow-moire warpage is legitimate to list but must be CONDITIONAL - small CSP bodies rarely warp enough to cause head-in-pillow."
+  ],
+  "expected_test_ids": [
+    "precon", "tc", "uhast", "hast", "thb", "htsl",
+    "board_drop", "board_tc", "ball_shear",
+    "solderability", "phys_dim", "visual", "warpage", "die_strength"
+  ],
+  "forbidden_test_ids": [
+    "wire_pull", "ball_bond_shear", "die_shear", "bump_integrity", "corner_csam",
+    "ptc", "mech_shock", "vibration", "const_accel", "solvent", "lead_integrity"
+  ],
+  "expected_plan_fields": {
+    "device_class.aec_grade": null,
+    "package.area_array": true,
+    "package.interconnect": "wlcsp_bump",
+    "novelty.lots": 3,
+    "msl.level": "1",
+    "msl.floor_life": "unlimited floor life at <=30 C / 85 %RH",
+    "summary.env_leg_n_per_lot": 77,
+    "summary.env_leg_ltpd_pct_at_90": 2.95,
+    "summary.env_leg_units_total": 924
+  },
+  "expected_rows": {
+    "precon": {
+      "standard_contains": "JESD22-A113",
+      "condition_contains": "85 C / 85 %RH, 168 h",
+      "n_per_lot": 77, "lots": 3, "accept": 0, "applicability": "required"
+    },
+    "tc": {
+      "standard_contains": "JESD22-A104",
+      "condition_contains": "-40/+125",
+      "duration_contains": "1000 cycles",
+      "n_per_lot": 77, "lots": 3, "applicability": "required"
+    },
+    "uhast": {"standard_contains": "JESD22-A118", "duration_contains": "96 h"},
+    "hast": {"standard_contains": "JESD22-A110", "duration_contains": "96 h"},
+    "thb": {"standard_contains": "JESD22-A101", "applicability": "alternative"},
+    "htsl": {
+      "standard_contains": "JESD22-A103", "condition_contains": "150 C",
+      "duration_contains": "1000 h", "applicability": "required"
+    },
+    "board_drop": {
+      "standard_contains": "JESD22-B111",
+      "condition_contains": "1500 G",
+      "applicability": "required",
+      "sample_note_contains": "daisy-chain"
+    },
+    "board_tc": {
+      "standard_contains": "IPC-9701",
+      "condition_contains": "-40/+125",
+      "applicability": "required"
+    },
+    "ball_shear": {
+      "standard_contains": "JESD22-B117",
+      "note_contains": "mode",
+      "applicability": "required"
+    },
+    "solderability": {"standard_contains": "J-STD-002"},
+    "phys_dim": {"standard_contains": "JESD22-B100"},
+    "visual": {"applicability": "required"},
+    "warpage": {"standard_contains": "JESD22-B112", "applicability": "conditional"},
+    "die_strength": {"applicability": "conditional", "standard_contains": "TODO"}
+  },
+  "expected_note_keywords": ["HOUSE RULE", "board joint"],
+  "expected_out_of_scope_keywords": ["HTOL", "ELFR", "ESD"]
+}

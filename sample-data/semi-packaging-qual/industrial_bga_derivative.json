@@ -1,0 +1,18 @@
+{
+  "scenario_name": "industrial_bga_derivative",
+  "title": "Industrial PBGA, derivative package",
+  "narrative": "A 23x23 mm 484-ball PBGA (wire-bond on a 4-layer organic substrate, 1.2 mm body) already qualified for an industrial controller is being reused for a derivative device: same substrate design and same ball map, larger die, same assembly site, same materials set. Industrial mission profile, cabinet-mounted, no drop exposure. Currently shipped at MSL 3.",
+  "expected_judgement": "Derivative on a non-automotive part: 1 lot plus a written similarity justification - but the larger die changes the die-to-pad ratio, which is one of the named similarity disqualifiers, so the plan must call that out. Wire-bond construction keeps wire pull / ball-bond shear / die shear in scope. Area array keeps board-level thermal cycling and warpage in scope; there is no drop exposure, so board-level drop stays out.",
+  "inputs": {
+    "device_class": "industrial",
+    "package": "pbga",
+    "novelty": "derivative",
+    "msl": "3",
+    "handheld": false,
+    "board_level": false,
+    "suppress_board_level": false,
+    "power_cycling": false,
+    "device": "PBGA-484, 23x23x1.2 mm, 1.0 mm ball pitch, wire bond on 4-layer organic substrate, industrial controller",
+    "change": null
+  }
+}

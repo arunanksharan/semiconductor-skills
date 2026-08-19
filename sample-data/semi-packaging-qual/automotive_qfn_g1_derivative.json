@@ -1,0 +1,18 @@
+{
+  "scenario_name": "automotive_qfn_g1_derivative",
+  "title": "Automotive QFN, AEC-Q100 grade 1, derivative package",
+  "narrative": "A qualified 5x5 mm QFN-32 motor pre-driver is being re-spun with a shrunk die (same pad count, same pad pitch, same leadframe design, same OSAT, same mold compound and die-attach lots). The customer is a tier-1 automotive supplier at AEC-Q100 grade 1 (ambient up to 125 C, under-hood adjacent). Pd-coated Cu wire on Al pads. Exposed pad soldered to a copper pour on the customer's board. The programme wants to leverage the existing family qualification.",
+  "expected_judgement": "Derivative, so a similarity justification carries the lot argument - but the automotive floor of 3 non-consecutive assembly lots still applies. Cu-alloy wire on Al pads makes biased HAST the leg that matters. QFN is not an area-array package, so board-level DROP does not belong in the plan; board-level thermal cycling of the exposed-pad joint does, as a conditional row.",
+  "inputs": {
+    "device_class": "automotive_grade1",
+    "package": "qfn",
+    "novelty": "derivative",
+    "msl": "2",
+    "handheld": false,
+    "board_level": false,
+    "suppress_board_level": false,
+    "power_cycling": false,
+    "device": "QFN-32, 5x5x0.9 mm, exposed pad, Pd-coated Cu wire on Al pads, motor pre-driver",
+    "change": null
+  }
+}

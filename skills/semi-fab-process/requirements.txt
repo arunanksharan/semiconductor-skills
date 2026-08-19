@@ -1,0 +1,8 @@
+# semi-fab-process — Python dependencies (Python >= 3.10)
+# Deliberately minimal: the DOE algebra (fractional generators, alias structure,
+# Lenth's PSE) and the SPC constants are implemented in-repo rather than pulled
+# from pyDOE3/statsmodels, so the skill installs clean anywhere numpy works.
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7

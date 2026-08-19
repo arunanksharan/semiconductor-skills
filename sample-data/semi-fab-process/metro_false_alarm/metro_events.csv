@@ -1,0 +1,4 @@
+date,tool,event,note
+2026-08-04,MET-01,PM,"scheduled PM; reference wafer re-measured, within limits"
+2026-08-16,MET-02,CAL,calibration after light-source service; reference-wafer check skipped
+2026-08-20,MET-02,GAUGE_STUDY,"gauge R&R scheduled, not yet run"

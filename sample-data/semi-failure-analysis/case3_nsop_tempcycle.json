@@ -1,0 +1,98 @@
+{
+  "case_id": "FA-2026-0128",
+  "title": "Intermittent open on a single I/O, appearing only in the cold half of temperature cycling, on a wire-bond PBGA",
+  "status": "open",
+  "opened": "2026-08-10",
+  "requester": {
+    "name": "Board-level reliability",
+    "org": "Customer B - automotive tier 1",
+    "contact": "via account QE"
+  },
+  "device": {
+    "part_number": "KL-7715-PBGA",
+    "description": "CAN transceiver hub, wire-bond PBGA",
+    "package": "PBGA 256, wire bond, Cu wire on Al pad",
+    "date_code": "2604",
+    "assembly_lot": "AS-26-0119",
+    "wafer_lot": "W25-3380",
+    "assembly_site": "OSAT-3",
+    "test_program_rev": "TP-7715 rev C"
+  },
+  "samples": [
+    {
+      "serial": "U12-A",
+      "role": "sequence",
+      "condition_as_received": "still soldered to the customer's TC coupon board",
+      "disposition": "in FA lab, board attached"
+    },
+    {
+      "serial": "U12-B",
+      "role": "archive",
+      "condition_as_received": "sibling from the same assembly lot, never cycled",
+      "disposition": "archived"
+    },
+    {
+      "serial": "U12-C",
+      "role": "confirmation",
+      "condition_as_received": "second failing unit from the same TC coupon lot",
+      "disposition": "held"
+    },
+    {
+      "serial": "U12-D",
+      "role": "confirmation",
+      "condition_as_received": "second failing unit",
+      "disposition": "held"
+    },
+    {
+      "serial": "U12-E",
+      "role": "reference",
+      "condition_as_received": "cycled, still passing",
+      "disposition": "held as cycled-good reference"
+    }
+  ],
+  "complaint": "During board-level temperature cycling (-40 to +125 C) on a qualification coupon, 3 of 40 assemblies showed intermittent loss of continuity on one I/O net. The failure appears somewhere below about -10 C and clears on warm-up. The units pass every test at room temperature. The customer's CM has looked at the solder joints and believes it is a solder-joint crack; they want us to confirm so they can change the reflow profile.",
+  "symptoms": {
+    "symptom_class": "intermittent",
+    "failure_rate": "3 of 40 assemblies on the TC coupon; failures began appearing after roughly 400 cycles. Zero failures at incoming electrical test and zero at room temperature at any point.",
+    "conditions": "Board-level TC -40 to +125 C, 2 cycles/hour. Failure is a continuity open on one I/O net, present only in the cold portion of the cycle, and it recovers completely on warm-up. Not reproducible at room temperature by any means the customer tried."
+  },
+  "life_history": {
+    "burn_in": "no",
+    "board_reflow": "standard Pb-free reflow, MSL 3 handling documented and within floor life",
+    "field_hours": "0 - qualification coupon",
+    "environment": "TC chamber",
+    "application_notes": "board-level qual coupon, daisy-chained continuity monitoring available on the customer's fixture"
+  },
+  "selector_input": {
+    "symptom_class": "intermittent",
+    "package_type": "wirebond-bga",
+    "sample_count": 5,
+    "powered_signature": "open",
+    "suspected": [
+      "solder"
+    ],
+    "after_burnin": false,
+    "after_reflow": false,
+    "customer_return": true,
+    "budget": "medium",
+    "urgency": "routine"
+  },
+  "observations": [
+    {
+      "phase": "N0",
+      "technique": "retest_matrix",
+      "unit": "U12-A",
+      "conditions": "5 insertions at room temperature, customer program rev",
+      "result": "Passes all 5 insertions at room temperature. No parameter outside limits.",
+      "interpretation": "Room-temperature testing cannot see this failure; the case cannot proceed on room-temperature evidence.",
+      "date": "2026-08-10"
+    }
+  ],
+  "hypotheses": [],
+  "open_questions": [
+    "Does the open follow the package or the board? The customer has not yet re-tested the same package on a different board, or a different package on the same board site.",
+    "Which specific net and which specific ball/wire - the customer reports 'one I/O net' but has not identified it by ball position.",
+    "Is the assembly lot common across the three failures, and is it common with the 37 passing assemblies?",
+    "Cu wire on Al pad with an automotive mission profile - what does the OSAT's bond monitoring data for AS-26-0119 look like?"
+  ]
+}

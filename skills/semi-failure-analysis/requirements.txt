@@ -1,0 +1,14 @@
+# semi-failure-analysis - runtime dependencies
+#
+#   pip install -r requirements.txt
+#
+# Verified on Python 3.11.12 with numpy 2.2.6, pandas 2.3.3, matplotlib 3.10.8 (2026-08-20).
+# Nothing else is required: every script in scripts/ runs from a clean install of these three.
+#   numpy       - permutation statistics in bin_signature.py, synthetic data in gen_sample_case.py
+#   pandas      - CSV loading and grouping in bin_signature.py
+#   matplotlib  - PNG bin maps in bin_signature.py (Agg backend, no display needed)
+# technique_selector.py and fa_report.py use the standard library only.
+
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7

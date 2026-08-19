@@ -1,0 +1,9 @@
+lot_id,measurement,tool,date,thickness_a,note
+F0044,original,MET-02,2026-08-22,1015.84,the reading that tripped the chart
+F0044,repeat_same_tool,MET-02,2026-08-22,1016.54,repeatability is fine -- this is not a flyer read
+F0044,second_tool,MET-01,2026-08-22,1007.45,"same wafers, different metrology tool"
+F0044,post_recal_same_tool,MET-02,2026-08-24,1008.9,after MET-02 was re-calibrated against the reference wafer
+F0040,original,MET-02,2026-08-20,1007.17,"in spec, but measured after the calibration"
+F0040,second_tool,MET-01,2026-08-21,1000.13,"same offset appears on every MET-02 lot, not just the OOC one"
+F0042,original,MET-02,2026-08-21,1003.99,"in spec, but measured after the calibration"
+F0042,second_tool,MET-01,2026-08-21,995.63,"same offset appears on every MET-02 lot, not just the OOC one"

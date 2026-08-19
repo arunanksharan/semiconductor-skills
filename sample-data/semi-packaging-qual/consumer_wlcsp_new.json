@@ -1,0 +1,18 @@
+{
+  "scenario_name": "consumer_wlcsp_new",
+  "title": "Consumer WLCSP, new package family, MSL 1 target",
+  "narrative": "A power-management IC is moving to WLCSP for the first time: 2.6x2.6 mm, 36 bumps at 0.4 mm pitch, 300 um final die thickness, polymer repassivation over the RDL. The end product is a wearable. Marketing wants MSL 1 so the assembler can skip dry-pack handling. No prior WLCSP experience on this product line and a new bump/RDL supplier.",
+  "expected_judgement": "New package family: 3 non-consecutive lots, full stress set. WLCSP has no wire bonds and no die attach, so wire pull, ball-bond shear and die shear must NOT appear. The board joint IS the package joint, so board-level drop (handheld) and board-level thermal cycling are the core of the qualification, not optional extras. Thin die means a die-strength monitor belongs in the plan.",
+  "inputs": {
+    "device_class": "consumer",
+    "package": "wlcsp",
+    "novelty": "new_package",
+    "msl": "1",
+    "handheld": true,
+    "board_level": false,
+    "suppress_board_level": false,
+    "power_cycling": false,
+    "device": "WLCSP-36, 2.6x2.6 mm, 0.4 mm bump pitch, 300 um die, PMIC for a wearable",
+    "change": null
+  }
+}

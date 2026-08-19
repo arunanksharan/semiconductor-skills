@@ -1,0 +1,388 @@
+{
+  "case_id": "FA-2026-0117",
+  "title": "Single field return, dead short VDD-to-GND, 48 V industrial gateway line card",
+  "status": "closed",
+  "opened": "2026-08-05",
+  "closed": "2026-08-19",
+  "requester": {
+    "name": "Quality engineering",
+    "org": "Customer A - industrial gateway",
+    "contact": "via distributor RMA desk"
+  },
+  "device": {
+    "part_number": "KL-8842-QFN32",
+    "description": "24 V-tolerant transceiver, internal LDO, 32-pin QFN",
+    "package": "QFN32 wire-bond plastic",
+    "date_code": "2548",
+    "assembly_lot": "AS-24-8871",
+    "wafer_lot": "W24-1129",
+    "assembly_site": "OSAT-2",
+    "test_program_rev": "TP-8842 rev D"
+  },
+  "samples": [
+    {
+      "serial": "SN-0416",
+      "role": "sequence",
+      "condition_as_received": "de-soldered from customer board by the customer's CM; package intact, no external discoloration visible at 10x; pin 7 (VDD) solder residue present",
+      "disposition": "consumed - decapped and cross-sectioned; mount retained in case file"
+    },
+    {
+      "serial": "SN-0417 (reference)",
+      "role": "reference",
+      "condition_as_received": "known-good unit, same date code, pulled from customer spares",
+      "disposition": "returned to customer, non-destructive imaging only"
+    }
+  ],
+  "chain_of_custody": [
+    {
+      "date": "2026-08-01",
+      "from": "Customer A field site",
+      "to": "Customer A quality lab",
+      "action": "unit removed from installed gateway, bagged",
+      "operator": "cust. tech"
+    },
+    {
+      "date": "2026-08-03",
+      "from": "Customer A quality lab",
+      "to": "Distributor RMA",
+      "action": "shipped with RMA form; board not included",
+      "operator": "cust. QE"
+    },
+    {
+      "date": "2026-08-05",
+      "from": "Distributor RMA",
+      "to": "FA lab",
+      "action": "received, photographed as-received before any handling",
+      "operator": "FA-01"
+    },
+    {
+      "date": "2026-08-08",
+      "from": "FA lab bench",
+      "to": "FA lab X-ray",
+      "action": "2D X-ray, unit returned to bag same day",
+      "operator": "FA-02"
+    },
+    {
+      "date": "2026-08-12",
+      "from": "FA lab",
+      "to": "FA lab decap bench",
+      "action": "GATE D1 cleared and signed; wet chemical decap of SN-0416",
+      "operator": "FA-01 / reviewed FA-03"
+    },
+    {
+      "date": "2026-08-15",
+      "from": "FA lab",
+      "to": "FA lab FIB",
+      "action": "GATE D2 cleared and signed; FIB cross-section at the localized site",
+      "operator": "FA-03"
+    }
+  ],
+  "complaint": "Unit went dead in the field after approximately 400 hours of service. Customer reports the gateway is hot-swapped into a live 48 V backplane during maintenance. Customer's own bench check found VDD shorted to GND. Customer states 'this is ESD from our handling' and has asked us to confirm.",
+  "symptoms": {
+    "symptom_class": "hard_fail",
+    "failure_rate": "1 unit; no other returns from this customer or this date code to date. Installed base on this platform approximately 12,000 units.",
+    "conditions": "Failure discovered in service. Customer bench check: VDD-GND resistance measured at approximately 3 ohms with a DMM. No other pin checked."
+  },
+  "problem": {
+    "what": "One returned KL-8842-QFN32 exhibits a low-resistance short between VDD (pin 7) and GND; measured 2.8 ohms on the curve tracer at 100 mV, symmetric in both polarities.",
+    "is_not": "Not present on any signal pin: all 28 I/O pins curve-trace within the known-good envelope. Not a package crack (X-ray and C-SAM clean). Not present in any other returned unit - zero further returns from date code 2548.",
+    "where": "Customer A industrial gateway platform, field-installed units subject to hot-swap maintenance into a live 48 V backplane.",
+    "when": "After approximately 400 service hours; discovered during a maintenance visit.",
+    "how_many": "1 of approximately 12,000 units in the installed base on this platform (0.008%); 1 of 1 units received for analysis.",
+    "since": "First and only report; RMA received 2026-08-05."
+  },
+  "d0_emergency_response": "No line stop. Date code 2548 was placed on ship-hold for 48 hours while the returns database was queried for related signatures; hold released once no second occurrence was found.",
+  "team": [
+    {
+      "name": "FA-01",
+      "role": "FA lab lead, case owner"
+    },
+    {
+      "name": "FA-03",
+      "role": "Physical analysis (decap, FIB, SEM)"
+    },
+    {
+      "name": "QE-02",
+      "role": "Customer quality interface"
+    },
+    {
+      "name": "DE-05",
+      "role": "Product design - ESD/EOS protection network owner"
+    },
+    {
+      "name": "AE-01",
+      "role": "Applications engineering - customer board and sequencing"
+    }
+  ],
+  "selector_input": {
+    "symptom_class": "hard_fail",
+    "package_type": "wirebond-plastic",
+    "sample_count": 1,
+    "powered_signature": "short",
+    "suspected": [
+      "esd"
+    ],
+    "after_burnin": false,
+    "after_reflow": false,
+    "customer_return": true,
+    "budget": "medium",
+    "urgency": "expedite"
+  },
+  "observations": [
+    {
+      "phase": "N0",
+      "technique": "external_visual",
+      "unit": "SN-0416",
+      "conditions": "10x and 50x stereo, as received, before any electrical test",
+      "result": "Faint mold discoloration over the die corner nearest pin 7 at 50x oblique; no cracking, no bulging, no rework marks.",
+      "interpretation": "Consistent with localized internal heating. Not diagnostic alone.",
+      "date": "2026-08-05",
+      "image": "fig1_external.png"
+    },
+    {
+      "phase": "N0",
+      "technique": "curve_trace",
+      "unit": "SN-0416 vs SN-0417",
+      "conditions": "Pin-by-pin I-V, +/-1 V sweep, compliance limited to 1 mA to avoid altering the damage",
+      "result": "VDD (pin 7) to GND: 2.8 ohms, linear and symmetric in both polarities. All 28 I/O pins and their protection diodes match the reference unit envelope. No leakage on any signal pin.",
+      "interpretation": "Observed: a resistive, non-rectifying short on the supply path only. A metallic (fused/melted) path, not a degraded junction.",
+      "date": "2026-08-06",
+      "image": "fig2_curvetrace.png"
+    },
+    {
+      "phase": "N0",
+      "technique": "datalog_review",
+      "unit": "SN-0416",
+      "conditions": "Final-test datalog retrieved by serial from the 2548 date code archive",
+      "result": "Unit passed all final-test parameters at manufacture with normal margin, including IDDQ and all I/O leakage tests.",
+      "interpretation": "Retires the escape-at-final-test hypothesis for a pre-existing defect of this magnitude.",
+      "date": "2026-08-06"
+    },
+    {
+      "phase": "N1",
+      "technique": "xray_2d",
+      "unit": "SN-0416",
+      "conditions": "2D transmission, 0 and 45 degree projections",
+      "result": "All 32 bond wires intact and correctly placed; no wire sweep, no shorting, no foreign metal, die-attach void area visually below the 10% device limit.",
+      "interpretation": "Retires wire-short and gross-assembly hypotheses. Null result, reported.",
+      "date": "2026-08-08",
+      "image": "fig3_xray.png"
+    },
+    {
+      "phase": "N1",
+      "technique": "csam",
+      "unit": "SN-0416",
+      "conditions": "Immersion C-SAM, die face and die-attach interfaces; performed before any decap or bake",
+      "result": "No delamination detected at the die face, die attach, or leadframe interfaces. No popcorn crack.",
+      "interpretation": "Null result. Retires the moisture/popcorn chain; run before decap because decap would have destroyed the evidence either way.",
+      "date": "2026-08-08"
+    },
+    {
+      "phase": "N2",
+      "technique": "lock_in_thermography",
+      "unit": "SN-0416",
+      "conditions": "50 mA forced through the VDD-GND short, 3 Hz modulation, through-mold",
+      "result": "A single hot spot located over the die corner adjacent to the pin-7 bond, coincident with the external mold discoloration.",
+      "interpretation": "Failure site localized to a sub-millimetre region without opening the package. This localization is what cleared GATE D2 later.",
+      "date": "2026-08-11",
+      "image": "fig4_lit.png"
+    },
+    {
+      "phase": "D1",
+      "technique": "decap_chemical",
+      "unit": "SN-0416",
+      "conditions": "GATE D1 cleared 2026-08-12: all N0-N2 complete, C-SAM and X-ray done, single-sample protocol acknowledged, expected outcomes pre-registered, customer approval on file. Wet acid decap, window over the pin-7 corner.",
+      "result": "Die exposed with bonds intact.",
+      "interpretation": "Enabling step; no diagnostic content of its own.",
+      "date": "2026-08-12"
+    },
+    {
+      "phase": "D1",
+      "technique": "internal_optical",
+      "unit": "SN-0416",
+      "conditions": "100x-500x, before any re-biasing of the die",
+      "result": "A molten region approximately 60 x 40 micrometres spanning the VDD bus metal and the adjacent supply clamp, with visibly displaced and re-solidified metal and cracked dielectric at the perimeter. The pad-side I/O protection structures are undamaged and identical to the reference die.",
+      "interpretation": "Observed: a large-area melt on the supply path. The scale and metal displacement are far beyond what a human-body-model event can supply, and the I/O ESD network is intact.",
+      "date": "2026-08-13",
+      "image": "fig5_internal.png"
+    },
+    {
+      "phase": "D2",
+      "technique": "fib_cross_section",
+      "unit": "SN-0416",
+      "conditions": "GATE D2 cleared 2026-08-15: site localized by thermography and optical, all prior imagery archived, expected outcomes pre-registered. FIB cut through the centre of the melt.",
+      "result": "Metal fully fused through the full metal-1 thickness over approximately 12 micrometres, with re-solidified metal bridging into the substrate through a cracked ILD.",
+      "interpretation": "Observed: a metal-to-substrate fused path - the physical short measured on the curve tracer.",
+      "date": "2026-08-15",
+      "image": "fig6_fib.png"
+    },
+    {
+      "phase": "D2",
+      "technique": "sem_edx",
+      "unit": "SN-0416",
+      "conditions": "SEM at the cut face; EDX at the melt and at a clean reference site 200 um away",
+      "result": "Al and Si intermixed within the melt; no Cl, Br, or S above the reference site; no foreign material.",
+      "interpretation": "Retires corrosion and contamination hypotheses. Consistent with a purely thermal/electrical event.",
+      "date": "2026-08-16"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis": "ESD (HBM) during customer handling - the customer's stated cause",
+      "status": "retired",
+      "evidence_for": "Customer handles boards during maintenance; no ESD control audit exists for the field procedure.",
+      "evidence_against": "Damage is on the supply path, not on a pin protection device; all 28 I/O protection structures are undamaged; the melt volume (~60x40 um with displaced metal) exceeds the energy a human-body event can deliver through ~1.5 kohm.",
+      "discriminating_test": "curve_trace pin map plus internal_optical damage-area measurement",
+      "cost": "low / ND then D"
+    },
+    {
+      "hypothesis": "ESD (CDM) during board assembly",
+      "status": "retired",
+      "evidence_for": "CDM damage can appear on internal nodes rather than at pads.",
+      "evidence_against": "CDM damage is sub-micron with minimal surrounding melt; the observed site is three orders of magnitude larger in area and shows metal displacement. Unit also passed 400 service hours after assembly.",
+      "discriminating_test": "internal_optical damage morphology and scale",
+      "cost": "low"
+    },
+    {
+      "hypothesis": "EOS - sustained supply-sourced overstress on VDD during live hot-swap",
+      "status": "confirmed",
+      "evidence_for": "Melt confined to the VDD bus and supply clamp; metal fused over ~12 um; mold discoloration above the site; energy required is only available from a supply, not from a stored-charge model; application is hot-swapped into a live 48 V backplane.",
+      "evidence_against": "The customer has not supplied the schematic or inrush measurements, so the specific transient path is inferred, not measured.",
+      "discriminating_test": "Application inrush measurement on the customer's board during hot-swap - requested, outstanding.",
+      "cost": "low / customer action"
+    },
+    {
+      "hypothesis": "Latch-up triggered by the hot-swap transient, sustained by the 3.3 V rail",
+      "status": "active",
+      "evidence_for": "Latch-up produces supply-sourced melt indistinguishable from EOS by morphology, and a hot-swap transient is a plausible trigger.",
+      "evidence_against": "The melt path runs through supply bus metal rather than through a well-substrate diffusion path; no evidence of the parasitic structure conducting was found in cross-section.",
+      "discriminating_test": "Board-level transient capture plus a latch-up characterization on fresh units per JESD78-style method - recommended, not yet run.",
+      "cost": "medium / requires fresh units"
+    },
+    {
+      "hypothesis": "Test-induced damage in this lab",
+      "status": "retired",
+      "evidence_for": "Standing hypothesis on every case.",
+      "evidence_against": "The short was measured by the customer before receipt, and our first curve trace ran at 1 mA compliance. Damage predates our handling.",
+      "discriminating_test": "As-received custody log and the customer's own bench measurement",
+      "cost": "none"
+    }
+  ],
+  "mechanism": {
+    "primary": "Electrically induced physical damage (EIPD) on the VDD supply path, most consistent with a sustained electrical overstress (EOS) event rather than a component-level ESD event.",
+    "confidence": "medium",
+    "basis": "Observed: 2.8 ohm symmetric VDD-GND short (curve trace); a ~60x40 um melt with displaced metal spanning the VDD bus and supply clamp (internal optical); metal fused through full metal-1 thickness with a re-solidified path into the substrate through cracked ILD (FIB cross-section); no elemental contamination (EDX). All 28 I/O protection structures undamaged, which is inconsistent with a pin-level ESD event. The damaged volume requires more energy than component-level ESD models can supply, and is consistent with a supply-sourced transient. Confidence is medium rather than high because the application transient has not been measured and latch-up has not been positively excluded.",
+    "secondary": "Latch-up triggered by the same transient cannot be excluded on morphology alone; the cross-section did not show a well-substrate conduction path, which argues against it but does not eliminate it.",
+    "not_determined": "The specific circuit path and magnitude of the hot-swap transient. The customer has not supplied the board schematic or inrush measurements, so the source of the overstress is inferred from the damage and the stated application, not measured."
+  },
+  "escape_point": "Two legs. (a) Manufacturing test cannot detect this failure because the part was good at manufacture - the final-test datalog for SN-0416 shows normal margin on every parameter including IDDQ and I/O leakage, so there is no test escape. (b) The real escape is at the application-review stage: the datasheet absolute-maximum and the recommended hot-swap sequencing were never reviewed against this customer's live-backplane maintenance procedure, and no inrush limiting is specified in our reference design for hot-swap use.",
+  "containment": [
+    {
+      "action": "48-hour ship-hold on date code 2548 pending a returns-database query for matching signatures (VDD-GND short).",
+      "owner": "QE-02",
+      "due": "2026-08-06",
+      "status": "complete - released, no second case",
+      "verification": "Returns database query across 18 months: zero further VDD-GND shorts on this part number."
+    },
+    {
+      "action": "Advisory to the customer: do not hot-swap this line card into a live backplane until inrush behaviour on the 3.3 V rail has been characterized.",
+      "owner": "AE-01",
+      "due": "2026-08-07",
+      "status": "complete",
+      "verification": "Advisory acknowledged in writing by Customer A quality on 2026-08-07."
+    },
+    {
+      "action": "Retain and quarantine any further returns from this platform unpowered, without customer bench testing, to preserve the damage signature.",
+      "owner": "QE-02",
+      "due": "2026-08-07",
+      "status": "in place",
+      "verification": "RMA desk instruction updated; distributor confirmed."
+    }
+  ],
+  "corrective_actions": [
+    {
+      "action": "Applications engineering to characterize hot-swap inrush on the customer's board and publish a hot-swap application note with required inrush limiting and rail sequencing for this device family.",
+      "owner": "AE-01",
+      "due": "2026-09-15",
+      "verification": "Measured inrush waveform on the customer board, before and after the recommended limiting, attached to the application note."
+    },
+    {
+      "action": "Design review of the supply-clamp energy rating against the transient environment implied by live-backplane hot-swap; decide whether the clamp is adequately specified or the datasheet must state the limit explicitly.",
+      "owner": "DE-05",
+      "due": "2026-10-01",
+      "verification": "Design review record with the clamp energy calculation and the resulting datasheet or design change decision."
+    },
+    {
+      "action": "Run a latch-up characterization on fresh units per a JESD78-style method to positively include or exclude the latch-up leg of the mechanism.",
+      "owner": "DE-05",
+      "due": "2026-09-30",
+      "verification": "Characterization report; result folded back into this case's mechanism call before the case is treated as fully closed."
+    }
+  ],
+  "validation": [
+    "Returns-database query across 18 months and approximately 12,000 installed units found zero further VDD-GND short signatures - the failure is a single event, not a population trend. (Evidence: query export dated 2026-08-06 in the case file.)",
+    "Customer acknowledged the hot-swap advisory in writing on 2026-08-07; no further returns from this platform as of case closure.",
+    "PENDING: effectiveness of the corrective actions cannot be validated until the application note and the latch-up characterization are complete. This report records the actions as open, not as verified."
+  ],
+  "prevention": [
+    "Read-across: identify every other product family sold into hot-swap or live-insertion applications and check whether the datasheet states a hot-swap limitation. Owner DE-05.",
+    "Process change: add 'live insertion / hot-swap present?' as a mandatory field in the application-review checklist for new design-ins. Owner AE-01.",
+    "FA process: add the standing instruction that returned units are quarantined unpowered and are not bench-tested by the customer or the distributor before receipt, so that damage evidence is not altered en route. Owner QE-02."
+  ],
+  "recommendations": [
+    "Obtain the customer's board schematic and an inrush capture during hot-swap; without it the transient source remains inferred.",
+    "Complete the latch-up characterization before treating the mechanism call as final.",
+    "If a second unit with the same signature is ever received, run magnetic current imaging before opening it - a second sample is worth more intact than decapped."
+  ],
+  "limitations": [
+    "Single sample. Every conclusion is a 'consistent with' at the unit level and none of it supports a population claim.",
+    "The customer measured the short with a DMM before shipping the unit; that measurement applied power to an already-damaged part and could in principle have extended the damage. The morphology does not suggest it did, but it cannot be excluded.",
+    "The application transient was not measured. The source of the overstress is inferred from the damage character and the stated hot-swap usage.",
+    "Latch-up was not positively excluded; the cross-section evidence argues against it but is not conclusive.",
+    "No sibling units from date code 2548 were available for comparison."
+  ],
+  "images": [
+    {
+      "file": "fig1_external.png",
+      "unit": "SN-0416",
+      "technique": "external_visual",
+      "scale": "50x, 500 um bar",
+      "caption": "Mold discoloration over the pin-7 die corner, oblique illumination, as received."
+    },
+    {
+      "file": "fig2_curvetrace.png",
+      "unit": "SN-0416 vs SN-0417",
+      "technique": "curve_trace",
+      "scale": "+/-1 V, 1 mA compliance",
+      "caption": "VDD-GND I-V, failing unit (2.8 ohm, linear) overlaid on the reference unit."
+    },
+    {
+      "file": "fig3_xray.png",
+      "unit": "SN-0416",
+      "technique": "xray_2d",
+      "scale": "1 mm bar",
+      "caption": "All 32 bond wires intact and correctly placed; no shorting or sweep."
+    },
+    {
+      "file": "fig4_lit.png",
+      "unit": "SN-0416",
+      "technique": "lock_in_thermography",
+      "scale": "1 mm bar, 50 mA / 3 Hz",
+      "caption": "Single hot spot at the pin-7 die corner, coincident with the external discoloration."
+    },
+    {
+      "file": "fig5_internal.png",
+      "unit": "SN-0416",
+      "technique": "internal_optical",
+      "scale": "500x, 20 um bar",
+      "caption": "Molten region approx. 60 x 40 um across the VDD bus and supply clamp with displaced metal; I/O protection structures intact."
+    },
+    {
+      "file": "fig6_fib.png",
+      "unit": "SN-0416",
+      "technique": "fib_cross_section",
+      "scale": "5 um bar",
+      "caption": "Metal-1 fused through full thickness with a re-solidified path into the substrate through cracked ILD."
+    }
+  ]
+}

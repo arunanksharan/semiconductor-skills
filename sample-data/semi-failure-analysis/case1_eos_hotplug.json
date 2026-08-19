@@ -1,0 +1,97 @@
+{
+  "case_id": "FA-2026-0117",
+  "title": "Single field return, dead short VDD-to-GND, 48 V industrial gateway line card",
+  "status": "open",
+  "opened": "2026-08-05",
+  "requester": {
+    "name": "Quality engineering",
+    "org": "Customer A - industrial gateway",
+    "contact": "via distributor RMA desk"
+  },
+  "device": {
+    "part_number": "KL-8842-QFN32",
+    "description": "24 V-tolerant transceiver, internal LDO, 32-pin QFN",
+    "package": "QFN32 wire-bond plastic",
+    "date_code": "2548",
+    "assembly_lot": "AS-24-8871",
+    "wafer_lot": "W24-1129",
+    "assembly_site": "OSAT-2",
+    "test_program_rev": "TP-8842 rev D"
+  },
+  "samples": [
+    {
+      "serial": "SN-0416",
+      "role": "sequence",
+      "condition_as_received": "de-soldered from customer board by the customer's CM; package intact, no external discoloration visible at 10x; pin 7 (VDD) solder residue present",
+      "disposition": "in FA lab, unpowered, ESD bag, custody log open"
+    }
+  ],
+  "chain_of_custody": [
+    {
+      "date": "2026-08-01",
+      "from": "Customer A field site",
+      "to": "Customer A quality lab",
+      "action": "unit removed from installed gateway, bagged",
+      "operator": "cust. tech"
+    },
+    {
+      "date": "2026-08-03",
+      "from": "Customer A quality lab",
+      "to": "Distributor RMA",
+      "action": "shipped with RMA form; board not included",
+      "operator": "cust. QE"
+    },
+    {
+      "date": "2026-08-05",
+      "from": "Distributor RMA",
+      "to": "FA lab",
+      "action": "received, photographed as-received before any handling",
+      "operator": "FA-01"
+    }
+  ],
+  "complaint": "Unit went dead in the field after approximately 400 hours of service. Customer reports the gateway is hot-swapped into a live 48 V backplane during maintenance. Customer's own bench check found VDD shorted to GND. Customer states 'this is ESD from our handling' and has asked us to confirm.",
+  "symptoms": {
+    "symptom_class": "hard_fail",
+    "failure_rate": "1 unit; no other returns from this customer or this date code to date. Installed base on this platform approximately 12,000 units.",
+    "conditions": "Failure discovered in service. Customer bench check: VDD-GND resistance measured at approximately 3 ohms with a DMM. No other pin checked."
+  },
+  "life_history": {
+    "burn_in": "no",
+    "board_reflow": "standard Pb-free reflow at the CM, 2025-11, no rework recorded on this unit",
+    "field_hours": "approximately 400",
+    "environment": "indoor cabinet, 20-40 C",
+    "application_notes": "hot-swap into a live 48 V backplane during maintenance; on-board buck converter feeds the 3.3 V rail; customer has not supplied the schematic or the power-sequencing detail yet"
+  },
+  "selector_input": {
+    "symptom_class": "hard_fail",
+    "package_type": "wirebond-plastic",
+    "sample_count": 1,
+    "powered_signature": "short",
+    "suspected": [
+      "esd"
+    ],
+    "after_burnin": false,
+    "after_reflow": false,
+    "customer_return": true,
+    "budget": "medium",
+    "urgency": "expedite"
+  },
+  "observations": [
+    {
+      "phase": "N0",
+      "technique": "external_visual",
+      "unit": "SN-0416",
+      "conditions": "10x and 50x stereo, as received, before any electrical test",
+      "result": "No cracking or bulging. Faint darkening of the mold compound over the corner nearest pin 7 visible at 50x under oblique light; not visible at 10x.",
+      "interpretation": "Observation only. Localized mold discoloration is a lead, not a conclusion.",
+      "date": "2026-08-05",
+      "image": "fig1_external.png"
+    }
+  ],
+  "hypotheses": [],
+  "open_questions": [
+    "Application power-sequencing and hot-swap inrush behaviour on the 3.3 V rail - requested from customer, not yet received.",
+    "Whether the customer's bench check itself applied power to a damaged part.",
+    "Whether any sibling units from date code 2548 are available from the same installation."
+  ]
+}

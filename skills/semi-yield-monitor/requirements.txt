@@ -1,0 +1,13 @@
+# semi-yield-monitor — runtime dependencies (Python 3.10+)
+# Nothing is pinned above a floor: these are stable, widely-installed libraries
+# and the skill's scripts use only long-settled APIs.
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+scipy>=1.10
+
+# OPTIONAL — only stdf_ingest.py touches these, and it degrades gracefully to a
+# CSV-export instruction when neither is importable. Install one if you have
+# real STDF files. Both verified importable on Python 3.11 at build time.
+#   pip install pystdf              # import pystdf         (1.3.4)
+#   pip install Semi-ATE-STDF       # import Semi_ATE.STDF

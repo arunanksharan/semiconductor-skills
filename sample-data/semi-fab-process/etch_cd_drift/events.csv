@@ -1,0 +1,7 @@
+date,tool,chamber,event,note
+2026-07-03,ETCH-01,B,WET_CLEAN,scheduled chamber wet clean + season
+2026-07-08,CMP-01,,PM,"pad change, conditioner disc replaced"
+2026-07-11,LITH-02,,PM,"scheduled optics/stage PM, qual passed"
+2026-07-15,ETCH-02,C,PART_CHANGE,"focus ring + upper liner replaced; short season, qual on 1 monitor wafer"
+2026-07-22,MET-01,,CAL,"routine CD-SEM magnification calibration, monitor unchanged"
+2026-07-26,ETCH-01,A,WET_CLEAN,scheduled chamber wet clean + season

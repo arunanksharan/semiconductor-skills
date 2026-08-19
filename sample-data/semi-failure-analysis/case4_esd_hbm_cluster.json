@@ -1,0 +1,85 @@
+{
+  "case_id": "FA-2026-0133",
+  "title": "Step increase in an I/O leakage bin at wafer sort, starting with the first lot probed after a probe-card and load-board change",
+  "status": "open",
+  "opened": "2026-08-12",
+  "requester": {
+    "name": "Product engineering",
+    "org": "Internal - wafer sort",
+    "contact": "PE-07"
+  },
+  "device": {
+    "part_number": "KL-6120 (die)",
+    "description": "Mixed-signal controller die at wafer sort",
+    "package": "bare die at probe (assembled later into QFN48)",
+    "date_code": "n/a",
+    "assembly_lot": "n/a",
+    "wafer_lot": "L2551 (before), L2604 (after)",
+    "assembly_site": "n/a",
+    "test_program_rev": "TP-6120 rev F (unchanged across both lots)"
+  },
+  "samples": [
+    {
+      "serial": "20 dies inked from L2604",
+      "role": "sequence",
+      "condition_as_received": "picked from the reject bin after sort, in waffle pack",
+      "disposition": "in FA lab"
+    },
+    {
+      "serial": "5 dies from L2551",
+      "role": "reference",
+      "condition_as_received": "passing dies from the pre-change lot",
+      "disposition": "held as known-good"
+    }
+  ],
+  "complaint": "Soft bin 42 (I/O leakage) jumped from effectively zero to roughly 6% of dies, starting with the first lot probed after a probe-card replacement and a load-board swap on prober PR-03. The test program revision did not change. Product engineering wants to know whether this is a real die problem, a test artifact, or damage being caused at probe.",
+  "symptoms": {
+    "symptom_class": "parametric",
+    "failure_rate": "Approximately 6% of dies in lot L2604 (first lot after the change); effectively 0% in lot L2551 (last lot before the change). Background defectivity bin unchanged in both lots.",
+    "conditions": "Wafer sort at room temperature, prober PR-03, new probe card PC-118 and load board LB-22 installed 2026-08-09. Failing dies show elevated input leakage on one I/O pin pair; all other parameters normal."
+  },
+  "data_files": {
+    "die_results": "case4_die_results.csv",
+    "tests": "case4_tests.csv",
+    "note": "Canonical schemas: die_results.csv is lot_id,wafer_id,die_x,die_y,hard_bin,soft_bin,pass_flag \u00b7 tests.csv is lot_id,wafer_id,die_x,die_y,test_num,test_name,value,lo_lim,hi_lim"
+  },
+  "life_history": {
+    "burn_in": "no",
+    "board_reflow": "no",
+    "field_hours": "0",
+    "environment": "sort floor",
+    "application_notes": "dies have never been packaged; the only handling is the prober"
+  },
+  "selector_input": {
+    "symptom_class": "parametric",
+    "package_type": "bare-die",
+    "sample_count": 20,
+    "powered_signature": "leakage",
+    "suspected": [
+      "esd"
+    ],
+    "after_burnin": false,
+    "after_reflow": false,
+    "customer_return": false,
+    "budget": "medium",
+    "urgency": "expedite"
+  },
+  "observations": [
+    {
+      "phase": "N0",
+      "technique": "datalog_review",
+      "unit": "L2604 population",
+      "conditions": "full datalog, both lots, same program rev TP-6120 rev F",
+      "result": "Failing dies fail test 1050 (IIL_IO2) far outside its limit; test 1051 (IIH_IO2) also fails on a subset. All other tests, including IDDQ, remain within limits.",
+      "interpretation": "Observed: leakage confined to one I/O pin pair, not a general leakage shift.",
+      "date": "2026-08-12"
+    }
+  ],
+  "hypotheses": [],
+  "open_questions": [
+    "Is the spatial pattern of bin 42 clustered (a process or wafer-level cause) or random (a per-touchdown event)? Run bin_signature.py before anything else.",
+    "Does a failing die still fail when re-probed on a different prober with the old probe card, and does a passing die start failing after extra touchdowns?",
+    "Was the new load board's ESD control verified - grounding, ionizer, and the discharge path through the probe card?",
+    "Do the failing dies correlate with touchdown order, probe-card site, or wafer position?"
+  ]
+}

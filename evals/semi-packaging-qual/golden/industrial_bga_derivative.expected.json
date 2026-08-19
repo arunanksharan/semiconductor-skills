@@ -1,0 +1,66 @@
+{
+  "scenario": "industrial_bga_derivative",
+  "title": "Industrial PBGA, derivative package",
+  "scenario_file": "industrial_bga_derivative.json",
+  "authored_by": "hand-written expectation, not a snapshot of generator output",
+  "rationale": [
+    "Industrial mission profile: TC at the -55/+125 C class condition for 1000 cycles and HTSL 1000 h at 150 C - a step above the consumer defaults, a step below the automotive suite.",
+    "Derivative on a NON-automotive part: 1 assembly lot plus a written similarity justification. Emitting 3 lots here is not wrong on safety grounds but it means the generator ignored the novelty input, which is the thing this case tests.",
+    "MSL 3 precon soak is 30 C / 60 %RH for 192 h - the mid-table soak, matched to the 168 h floor life the factory is actually managing.",
+    "Wire-bond on an organic substrate: wire pull, ball-bond shear and die shear stay in scope, and solder BALL shear (JESD22-B117) is additionally required because the second-level interconnect is a ball array.",
+    "Area array on a 23 mm organic body: board-level thermal cycling and shadow-moire warpage are REQUIRED rows - a body this size is exactly where dynamic warpage causes head-in-pillow.",
+    "Cabinet-mounted with no drop exposure and no automotive requirement: board-level drop, power temperature cycling and the automotive mechanical suite must all be absent."
+  ],
+  "expected_test_ids": [
+    "precon", "tc", "uhast", "hast", "thb", "htsl", "board_tc",
+    "wire_pull", "ball_bond_shear", "die_shear", "ball_shear",
+    "solderability", "phys_dim", "visual", "warpage"
+  ],
+  "forbidden_test_ids": [
+    "board_drop", "ptc", "mech_shock", "vibration", "const_accel", "solvent",
+    "lead_integrity", "bump_integrity", "corner_csam", "die_strength"
+  ],
+  "expected_plan_fields": {
+    "device_class.aec_grade": null,
+    "device_class.ambient_max_c": 85,
+    "package.area_array": true,
+    "package.interconnect": "wirebond",
+    "novelty.lots": 1,
+    "msl.level": "3",
+    "summary.env_leg_n_per_lot": 77,
+    "summary.env_leg_ltpd_pct_at_90": 2.95,
+    "summary.env_leg_units_total": 308
+  },
+  "expected_rows": {
+    "precon": {
+      "standard_contains": "JESD22-A113",
+      "condition_contains": "30 C / 60 %RH, 192 h",
+      "n_per_lot": 77, "lots": 1, "accept": 0, "applicability": "required"
+    },
+    "tc": {
+      "standard_contains": "JESD22-A104",
+      "condition_contains": "-55/+125",
+      "duration_contains": "1000 cycles",
+      "readpoints_contains": "500",
+      "n_per_lot": 77, "lots": 1, "applicability": "required"
+    },
+    "uhast": {"standard_contains": "JESD22-A118", "duration_contains": "96 h"},
+    "hast": {"standard_contains": "JESD22-A110", "duration_contains": "96 h"},
+    "thb": {"standard_contains": "JESD22-A101", "applicability": "alternative"},
+    "htsl": {
+      "standard_contains": "JESD22-A103", "condition_contains": "150 C",
+      "duration_contains": "1000 h", "applicability": "required"
+    },
+    "board_tc": {"standard_contains": "IPC-9701", "applicability": "required"},
+    "wire_pull": {"standard_contains": "2011", "readpoints_contains": "HTSL 1000 h"},
+    "ball_bond_shear": {"standard_contains": "JESD22-B116"},
+    "die_shear": {"applicability": "conditional"},
+    "ball_shear": {"standard_contains": "JESD22-B117", "applicability": "required"},
+    "solderability": {"standard_contains": "J-STD-002"},
+    "phys_dim": {"standard_contains": "JESD22-B100"},
+    "visual": {"applicability": "required"},
+    "warpage": {"standard_contains": "JESD22-B112", "applicability": "required"}
+  },
+  "expected_note_keywords": ["similarity"],
+  "expected_out_of_scope_keywords": ["HTOL", "ELFR", "ESD"]
+}
