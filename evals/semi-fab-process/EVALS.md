@@ -14,6 +14,14 @@ measured fab data.
 Paths below are relative to the repo root. Prefix scripts with
 `skills/semi-fab-process/scripts/` and data with `sample-data/semi-fab-process/`.
 
+**Re-run everything:**
+```bash
+python3 evals/semi-fab-process/run_evals.py            # --verbose for the numbers, --json for CI
+```
+The harness regenerates the sample data into a temp directory, drives every script through its
+real CLI as a subprocess, and asserts the four acceptance criteria below plus script hygiene.
+Last run: **OVERALL: PASS (41/41 checks passed)**, exit code 0.
+
 ## Scoreboard
 
 | # | Eval | Acceptance criterion | Result |

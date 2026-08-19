@@ -33,8 +33,8 @@ import glob
 import itertools
 import json
 import os
-import py_compile
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -240,15 +240,14 @@ def eval_hygiene(results: list) -> None:
           ", ".join(os.path.basename(s) for s in scripts))
     for s in scripts:
         name = os.path.basename(s)
-        try:
-            py_compile.compile(s, doraise=True, cfile=os.devnull)
-            ok, why = True, ""
-        except py_compile.PyCompileError as e:
-            ok, why = False, str(e)
-        check(results, f"(d) py_compile {name}", ok, why)
+        c = subprocess.run([sys.executable, "-m", "py_compile", s],
+                           capture_output=True, text=True)
+        check(results, f"(d) py_compile {name}", c.returncode == 0,
+              (c.stderr or c.stdout).strip()[:200])
         p = subprocess.run([sys.executable, s, "--help"], capture_output=True, text=True)
         check(results, f"(d) --help {name}", p.returncode == 0 and len(p.stdout) > 200,
               f"rc={p.returncode}, {len(p.stdout)} chars")
+    shutil.rmtree(os.path.join(SCRIPTS, "__pycache__"), ignore_errors=True)
 
 
 def main() -> int:
